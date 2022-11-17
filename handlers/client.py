@@ -2,7 +2,7 @@ from aiogram import types, Dispatcher
 from create_bot import dp, bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton
 from db import models
-from db.models import BD1
+from db.models import *
 
 urlkb = InlineKeyboardMarkup(row_width=1)
 urlButton = InlineKeyboardButton(text='Перейти на сайт ресторана🇬🇪', url='http://212.192.31.65/')
@@ -23,7 +23,8 @@ async def send_welcome(message: types.Message):
     ]
     keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True).add(urlButton)
 
-    await message.reply(f'Привет, {message.from_user.first_name}!👋 Я Гамарджоба-бот для бронирования столиков в ресторане ГамарджобаГенацвале🇬🇪', reply_markup=keyboard)
+    await message.reply(f'Привет, {message.from_user.first_name}!👋 Я Гамарджоба-бот для бронирования столиков в '
+                        f'ресторане ГамарджобаГенацвале🇬🇪', reply_markup=keyboard)
 
 
 # @dp.message_handler()
@@ -53,30 +54,32 @@ async def commands(message: types.Message):
         await message.reply('г. Москва, ул. Пушкина, д. Колотушкина 66')
     elif message.text == 'Перейти на сайт ресторана🇬🇪':
         await message.reply('Вы можете перейти на сайт ресторана по ссылке: gamarjoba.sytes.net')
+    elif message.text == 'Забронировать стол':
+        await message.reply('🗓Когда планируете посетить наш ресторан?\nВведите дату в формате YYYY-MM-DD')
     elif message.text == 'Меню':
-        await message.reply(BD1.psql_read(), reply_markup=keyboard)
+        await message.reply(psql_read(), reply_markup=keyboard)
     elif message.text == 'Блюда из печи':
-        await message.reply(BD1.psql_read_pechka())
+        await message.reply(psql_read_pechka())
     elif message.text == 'Салаты':
-        await message.reply(BD1.psql_read_salati())
+        await message.reply(psql_read_salati())
     elif message.text == 'Горячие блюда':
-        await message.reply(BD1.psql_read_goryachee())
+        await message.reply(psql_read_goryachee())
     elif message.text == 'Блюда на мангале':
-        await message.reply(BD1.psql_read_mangal())
+        await message.reply(psql_read_mangal())
     elif message.text == 'Закуски':
-        await message.reply(BD1.psql_read_zakuski())
+        await message.reply(psql_read_zakuski())
     elif message.text == 'Супы':
-        await message.reply(BD1.psql_read_soup())
+        await message.reply(psql_read_soup())
     elif message.text == 'Гарниры':
-        await message.reply(BD1.psql_read_garnir())
+        await message.reply(psql_read_garnir())
     elif message.text == 'Соусы':
-        await message.reply(BD1.psql_read_sous())
+        await message.reply(psql_read_sous())
     elif message.text == 'Хинкали':
-        await message.reply(BD1.psql_read_hinkali())
+        await message.reply(psql_read_hinkali())
     elif message.text == 'Напитки':
-        await message.reply(BD1.psql_read_napitki())
+        await message.reply(psql_read_napitki())
     elif message.text == 'Десерты':
-        await message.reply(BD1.psql_read_desert())
+        await message.reply(psql_read_desert())
 
 
 def register_handlers_client(dp : Dispatcher):
